@@ -8,6 +8,8 @@ namespace carDealership
   {
     public HomeModule()
     {
+      Car car1 = new Car("Ford", 15000, 1000);
+      Car car2 = new Car("Chevy", 17000, 2000);
       Get["/"] = _ =>
       {
         if (Car.GetAll().Count > 0) {
