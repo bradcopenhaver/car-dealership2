@@ -1,8 +1,9 @@
 <h1>Honest Bob's Used Cars</h1>
-<h4>Current Inventory</h4>
+<h4>Results</h4>
 <ul>
-  @foreach(Car car in @Model)
-  {
-    <li>@car.GetModel(), @car.GetMiles() miles, $@car.GetPrice()</li>
+  @foreach (var car in Model) {
+    <li><a href="car_details/@car.GetID()">@car.GetModel()</a></li>
   }
 </ul>
+<p><a href="/">Return to the home page</a></p>
+<p><a href="/add_car">Add a new car</a></p>
