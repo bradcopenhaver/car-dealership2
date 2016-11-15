@@ -65,22 +65,32 @@ namespace carDealership.Objects
       return _inventory[SearchID-1];
     }
 
-    public static List<Car> FindCars(int price, int miles)
+    public static List<Car> FindCars(string price, string miles)
     {
       List<Car> returnedCars = new List<Car> {};
-      for (int index = 0; index < _inventory.Count; index++) {
-        if (price > _inventory[index].GetPrice() && miles > _inventory[index].GetMiles()) {
-          returnedCars.Add(_inventory[index]);
+      if (price == "" && miles != "")
+      {
+        for (int index = 0; index < _inventory.Count; index++) {
+          if (int.Parse(miles) > _inventory[index].GetMiles()) {
+            returnedCars.Add(_inventory[index]);
+          }
+        }
+      }
+      else if (price != "" && miles == "") {
+        for (int index = 0; index < _inventory.Count; index++) {
+          if (int.Parse(price) > _inventory[index].GetPrice()) {
+            returnedCars.Add(_inventory[index]);
+          }
+        }
+      }
+      else if (price != "" && miles != "") {
+        for (int index = 0; index < _inventory.Count; index++) {
+          if (int.Parse(price) > _inventory[index].GetPrice() && int.Parse(miles) > _inventory[index].GetMiles()) {
+            returnedCars.Add(_inventory[index]);
+          }
         }
       }
       return returnedCars;
     }
-
-    // public void PrintInfo() {
-    //   Console.WriteLine("The car you selected is a " + _makeModel + ".");
-    //   Console.WriteLine("Its price is $" + _price + ".");
-    //   Console.WriteLine("It has " + _miles + " miles on it.");
-    // }
   }
-
 }

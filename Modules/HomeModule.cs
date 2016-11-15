@@ -46,10 +46,17 @@ namespace carDealership
       };
       Post["/search_results"] = _ =>
       {
-        List<Car> filteredCars = Car.FindCars(int.Parse(Request.Form["price"]), int.Parse(Request.Form["miles"]));
-        return View["current_inventory.cshtml", filteredCars];
+        if (Request.Form["price"] != "" || Request.Form["miles"] != "")
+        {
+          List<Car> filteredCars = Car.FindCars(Request.Form["price"], Request.Form["miles"]);
+          return View["current_inventory.cshtml", filteredCars];
+        }
+        else
+        {
+          return View["car_search.cshtml", true];
+        }
       };
-      Get["/car_search"] = _ => View["car_search.cshtml"];
+      Get["/car_search"] = _ => View["car_search.cshtml", false];
       Get["/clear_inventory"] = _ =>
       {
         Car.ClearAll();
