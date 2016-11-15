@@ -8,7 +8,16 @@ namespace carDealership
   {
     public HomeModule()
     {
-      Get["/"] = _ => View["index.cshtml"];
+      Get["/"] = _ =>
+      {
+        if (Car.GetAll().Count > 0) {
+          return View["index.cshtml", true];
+        }
+        else
+        {
+          return View["index.cshtml", false];
+        }
+      };
       Get["/add_car"] = _ => View["add_car.cshtml"];
       Get["/current_inventory"] = _ =>
       {
@@ -17,9 +26,18 @@ namespace carDealership
       };
       Post["/current_inventory"] = _ =>
       {
-        Car newCar = new Car(Request.Form["makeModel"], int.Parse(Request.Form["price"]), int.Parse(Request.Form["miles"]));
-        List<Car> allCars = Car.GetAll();
-        return View["current_inventory.cshtml", allCars];
+        string makeModel = Request.Form["makeModel"];
+        string price = Request.Form["price"];
+        string miles = Request.Form["miles"];
+        if (makeModel != "" && price != "" & miles != "") {
+          Car newCar = new Car(makeModel, int.Parse(price), int.Parse(miles));
+          List<Car> allCars = Car.GetAll();
+          return View["current_inventory.cshtml", allCars];
+        }
+        else
+        {
+          return View["add_car.cshtml"];
+        }
       };
       Get["/car_details/{id}"] = parameters =>
       {
@@ -32,6 +50,12 @@ namespace carDealership
         return View["current_inventory.cshtml", filteredCars];
       };
       Get["/car_search"] = _ => View["car_search.cshtml"];
+      Get["/clear_inventory"] = _ =>
+      {
+        Car.ClearAll();
+        List<Car> allCars = Car.GetAll();
+        return View["current_inventory", allCars];
+      };
     }
   }
 }

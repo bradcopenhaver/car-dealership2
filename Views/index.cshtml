@@ -1,4 +1,7 @@
 <h1>Honest Bob's Used Cars</h1>
 <p><a href="/add_car">Add a car to inventory</a></p>
-<p><a href="/current_inventory">View current inventory</a></p>
-<p><a href="/car_search">Search for cars by mileage and price.</a></p>
+@if (Model)
+{
+  <p><a href="/current_inventory">View current inventory</a></p>
+  <p><a href="/car_search">Search for cars by mileage and price.</a></p>
+}
