@@ -1,0 +1,8 @@
+<h1>Honest Bob's Used Cars</h1>
+<h4>Current Inventory</h4>
+<ul>
+  @foreach(Car car in @Model)
+  {
+    <li>@car.GetModel(), @car.GetMiles() miles, $@car.GetPrice()</li>
+  }
+</ul>
